@@ -7,7 +7,7 @@ T_r: .skip 4
 T_a: .skip 4
 T_b: .skip 4
 T_c: .skip 4
-string: .skip 6
+string: .skip 12
 
 
 .text
@@ -32,15 +32,29 @@ main:
     la t0, X_c
     sw a0, 0(t0)
 
+    la a0, linha_1
+    li a1, 6
+    jal numerifica_com_sinal
+    la t0, Y_b
+    sw a0, 0(t0)
+
     la t1, X_c
     lw a0, 0(t1)
     la a1, string
-    li a2, 10
+    li a2, 32
     li a3, 0
     jal desnumerifica
 
+
+    la t1, Y_b
+    lw a0, 0(t1)
     la a1, string
-    li a2, 6
+    li a2, 10
+    li a3, 6
+    jal desnumerifica
+
+    la a1, string
+    li a2, 12
     jal write
 
     li a0, 0
