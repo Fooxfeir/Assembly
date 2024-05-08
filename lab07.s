@@ -38,7 +38,36 @@ main:
     la t0, Y_b
     sw a0, 0(t0)
 
-    la t1, X_c
+    la a1, linha_2
+    li a2, 20
+    jal read
+
+    la a0, linha_2
+    li a1, 0
+    jal numerifica_sem_sinal
+    la t0, T_r
+    sw a0, 0(t0)
+
+    la a0, linha_2
+    li a1, 5
+    jal numerifica_sem_sinal
+    la t0, T_a
+    sw a0, 0(t0)
+
+    la a0, linha_2
+    li a1, 10
+    jal numerifica_sem_sinal
+    la t0, T_b
+    sw a0, 0(t0)
+
+    la a0, linha_2
+    li a1, 15
+    jal numerifica_sem_sinal
+    la t0, T_c
+    sw a0, 0(t0)
+
+
+    la t1, T_b
     lw a0, 0(t1)
     la a1, string
     li a2, 32
@@ -46,7 +75,7 @@ main:
     jal desnumerifica
 
 
-    la t1, Y_b
+    la t1, T_c
     lw a0, 0(t1)
     la a1, string
     li a2, 10
@@ -99,7 +128,7 @@ numerifica_com_sinal:
 
 
 # recebe um endereco em a0 e o índice em a1
-# devolve o numero em a1
+# devolve o numero em a0
 numerifica_sem_sinal:
     add a0, a0, a1 # move o ponteiro para o indice
     lbu t1, 0(a0)
@@ -121,9 +150,9 @@ numerifica_sem_sinal:
     li t5, 10
     mul t3, t3, t5
 
-    add a1, t1, t2
-    add a1, a1, t3
-    add a1, a1, t4
+    add a0, t1, t2
+    add a0, a0, t3
+    add a0, a0, t4
 
     ret
 
