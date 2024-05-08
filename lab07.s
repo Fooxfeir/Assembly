@@ -8,7 +8,6 @@ T_a: .skip 4
 T_b: .skip 4
 T_c: .skip 4
 string: .skip 6
-string_: .skip 6
 
 
 .text
