@@ -36,6 +36,7 @@ main:
     lw a0, 0(t1)
     la a1, string
     li a2, 10
+    li a3, 0
     jal desnumerifica
 
     la a1, string
@@ -115,11 +116,15 @@ numerifica_sem_sinal:
 # recebe um inteiro de 4 dígitos em a0
 # recebe o endereço de escrita em a1
 # recebe o valor do fim da string em a2
+# recebe o índice de escrita em a3
 # retorna uma string sinalizada com os caracteres em ascii
 desnumerifica:
     addi a5, a0, 0
+
+    bge a0, zero, if
     li t1, -1
     mul a0, a0, t1
+    if:
 
     li t5, 1000
     div t1, a0, t5
@@ -141,6 +146,8 @@ desnumerifica:
     addi t3, t3, 48
     addi t4, t4, 48
 
+    add a1, a1, a3
+    
     sb t1, 1(a1)
     sb t2, 2(a1)
     sb t3, 3(a1)
