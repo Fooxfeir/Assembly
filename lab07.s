@@ -7,6 +7,9 @@ T_r: .skip 4
 T_a: .skip 4
 T_b: .skip 4
 T_c: .skip 4
+D_a: .skip 4
+D_b: .skip 4
+D_c: .skip 4
 string: .skip 12
 
 
@@ -66,8 +69,34 @@ main:
     la t0, T_c
     sw a0, 0(t0)
 
+    # Calculates the distances based on the time
+    li t0, 3
+    li t2, 10
+
+    la t1, T_a
+    lw a1, 0(t1)
+    mul a2, a1, t0
+    div a2, a2, t2
+    la t1, D_a
+    sw a2, 0(t1)
 
     la t1, T_b
+    lw a1, 0(t1)
+    mul a2, a1, t0
+    div a2, a2, t2
+    la t1, D_b
+    sw a2, 0(t1)
+
+    la t1, T_c
+    lw a1, 0(t1)
+    mul a2, a1, t0
+    div a2, a2, t2
+    la t1, D_c
+    sw a2, 0(t1)
+
+
+    # returns numbers to the string format
+    la t1, D_a
     lw a0, 0(t1)
     la a1, string
     li a2, 32
@@ -75,13 +104,14 @@ main:
     jal desnumerifica
 
 
-    la t1, T_c
+    la t1, D_c
     lw a0, 0(t1)
     la a1, string
     li a2, 10
     li a3, 6
     jal desnumerifica
 
+    # writes the output
     la a1, string
     li a2, 12
     jal write
