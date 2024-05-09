@@ -10,6 +10,7 @@ T_c: .skip 4
 D_a: .skip 4
 D_b: .skip 4
 D_c: .skip 4
+coord_Y: .skip 4
 string: .skip 12
 
 
@@ -73,8 +74,14 @@ main:
     li t0, 3
     li t2, 10
 
+    la t3, T_r
+    lw t4, 0(t3)
+    li t3, -1
+    mul t4, t4, t3
+
     la t1, T_a
     lw a1, 0(t1)
+    add a1, a1, t4
     mul a2, a1, t0
     div a2, a2, t2
     la t1, D_a
@@ -82,6 +89,7 @@ main:
 
     la t1, T_b
     lw a1, 0(t1)
+    add a1, a1, t4
     mul a2, a1, t0
     div a2, a2, t2
     la t1, D_b
@@ -89,14 +97,41 @@ main:
 
     la t1, T_c
     lw a1, 0(t1)
+    add a1, a1, t4
     mul a2, a1, t0
     div a2, a2, t2
     la t1, D_c
     sw a2, 0(t1)
 
+    # Calculates Y based on equation given
+    la t0, D_a
+    la t1, Y_b
+    la t2, D_b
+
+    lw a0, 0(t0)
+    lw a1, 0(t1)
+    lw a2, 0(t2)
+
+    mul a0, a0, a0
+    mul a4, a1, a1
+    mul a2, a2, a2
+
+    li t1, -1
+    mul a2, a2, t1
+    
+    add a3, a4, a0
+    add a3, a3, a2
+
+    li t1, 2
+    mul a1, a1, t1
+
+    div a3, a3, a1
+
+    la t0, coord_Y 
+    sw a3, 0(t0)
 
     # returns numbers to the string format
-    la t1, D_a
+    la t1, coord_Y
     lw a0, 0(t1)
     la a1, string
     li a2, 32
